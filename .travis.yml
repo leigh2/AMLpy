@@ -1,6 +1,6 @@
 language: python
 install:
- - pip install uncertainites 
+ - pip install uncertainties 
  
 script: 
  - python -m unittest discover -v
