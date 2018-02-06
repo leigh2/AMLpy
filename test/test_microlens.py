@@ -21,11 +21,14 @@ class TestmicroLens(unittest.TestCase):
 		#Independent number check
 		self.assertAlmostEqual(m.get_einstein_R(0.75,4.63),36.30334758)
 
-#	def test_get_centroid_shift_dark_lens(self):
-#		#check to 0.1 mas precision (limited by data provided by Proft)
-#		self.assertAlmostEqual((m.get_centroid_shift(0.3,57.7,6.507*10.7)).n,0.597,places=1)
-#		self.assertAlmostEqual((m.get_centroid_shift(0.3,26.1,5.2*9.678)).n,1.733,places=1)
-#		self.assertAlmostEqual((m.get_centroid_shift(0.3,169.3,3.797*32.9)).n,0.115,places=1)	
+	def test_get_centroid_shift_dark_lens(self):
+		#Testing Microlensing evnet calculations agains those in
+		#Table 2 of Proft et al (2012).
+		#check to 0.1 mas precision (limited by data provided by Proft)
+		
+		self.assertAlmostEqual(m.get_centroid_shift_unresolved(0.3,57.7,6.507*10.7),0.597,places=1)
+		self.assertAlmostEqual(m.get_centroid_shift_unresolved(0.3,26.1,5.2*9.678),1.733,places=1)
+		self.assertAlmostEqual(m.get_centroid_shift_unresolved(0.3,169.3,3.797*32.9),0.115,places=1)	
 #		self.assertAlmostEqual((m.get_centroid_shift(0.55,192.3,4.824*26.7)).n,0.180,places=1)
 #		self.assertAlmostEqual((m.get_centroid_shift(0.6,5.6,29.560*4.5)).n,5.972,places=1)
 #		self.assertAlmostEqual((m.get_centroid_shift(0.35,19.3,12.141*5.0)).n,2.239,places=1)
