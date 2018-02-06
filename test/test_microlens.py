@@ -29,12 +29,12 @@ class TestmicroLens(unittest.TestCase):
 		self.assertAlmostEqual(m.get_centroid_shift_unresolved(0.3,57.7,6.507*10.7),0.597,places=1)
 		self.assertAlmostEqual(m.get_centroid_shift_unresolved(0.3,26.1,5.2*9.678),1.733,places=1)
 		self.assertAlmostEqual(m.get_centroid_shift_unresolved(0.3,169.3,3.797*32.9),0.115,places=1)	
-#		self.assertAlmostEqual((m.get_centroid_shift(0.55,192.3,4.824*26.7)).n,0.180,places=1)
-#		self.assertAlmostEqual((m.get_centroid_shift(0.6,5.6,29.560*4.5)).n,5.972,places=1)
-#		self.assertAlmostEqual((m.get_centroid_shift(0.35,19.3,12.141*5.0)).n,2.239,places=1)
-#		self.assertAlmostEqual((m.get_centroid_shift(0.45,42.9,9.243*4.0)).n,2.069,places=1)
-#		self.assertAlmostEqual((m.get_centroid_shift(0.3,92.5,5.138*2.4)).n,1.591,places=1)
-#		self.assertAlmostEqual((m.get_centroid_shift(0.35,55.7,7.149*21.3)).n,0.355,places=1)
+		self.assertAlmostEqual(m.get_centroid_shift_unresolved(0.55,192.3,4.824*26.7),0.180,places=1)
+		self.assertAlmostEqual(m.get_centroid_shift_unresolved(0.6,5.6,29.560*4.5),5.972,places=1)
+		self.assertAlmostEqual(m.get_centroid_shift_unresolved(0.35,19.3,12.141*5.0),2.239,places=1)
+		self.assertAlmostEqual(m.get_centroid_shift_unresolved(0.45,42.9,9.243*4.0),2.069,places=1)
+		self.assertAlmostEqual(m.get_centroid_shift_unresolved(0.3,92.5,5.138*2.4),1.591,places=1)
+		self.assertAlmostEqual(m.get_centroid_shift_unresolved(0.35,55.7,7.149*21.3),0.355,places=1)
 #
 #	def test_get_centroid_shift_luminos_lens(self):
 #		#check to 0.01 mas precisoin (limited by data provided by Proft)
