@@ -1,7 +1,0 @@
-language: python
-install:
- - pip install scipy
- - pip install astropy
-
-script: 
- - python -m unittest discover -v
