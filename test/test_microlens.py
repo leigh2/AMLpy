@@ -1,4 +1,4 @@
-import AMLpy.microlens as m
+import src.AMLpy.microlens as m
 import unittest
 
 class TestmicroLens(unittest.TestCase):
@@ -19,7 +19,7 @@ class TestmicroLens(unittest.TestCase):
 		self.assertAlmostEqual(m.get_einstein_R(0.35,55.7),7.149,places=1)
 		
 		#Independent number check
-		self.assertAlmostEqual(m.get_enstien_R(0.75,4.63),36.30334758)
+		self.assertAlmostEqual(m.get_einstein_R(0.75,4.63),36.30334758)
 
 #	def test_get_centroid_shift_dark_lens(self):
 #		#check to 0.1 mas precision (limited by data provided by Proft)
