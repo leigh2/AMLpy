@@ -89,7 +89,7 @@ def get_centroid_shift_unresolved(lensMass,lensDist,Sep,sourceDist=None,
             centriodShift (float) : The expected centriod shift [mas]
 	"""
 
-	EnstienR = get_einstein_R(lensMass,lensDist,sourceDist=sourceDist)
+	EinsteinR = get_einstein_R(lensMass,lensDist,sourceDist=sourceDist)
 	mu = Sep / EinsteinR
 
 	if lensMag is None and sourceMag is None:
