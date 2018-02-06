@@ -10,15 +10,17 @@ import uncertainties.umath as np
 from scipy.optimize import minimize_scalar
 from skyobj import skyobj
 from uncertainties import ufloat
+import microlens as m
 
 class event(object):
 
-	def __init__(self,lens,source,lensMass,lensDist):
+	def __init__(self,lens,source,lensMass,lensDist,sourceDist=None):
 
 		self._lens = lens
 		self._source = source
 		self._lensMass = lensMass
-		self._lesDist = lensDist
+		self._lensDist = lensDist
+		self._sourceDist = sourceDist
 
 	
 
@@ -27,7 +29,7 @@ class event(object):
 		"""
 
 		minimum = minimize_scalar(self._lens.getSepNum,
-			args=(self._source),bounds=(1901.0,2099.0))
+			args=(self._source),bounds=(2015,2025),method='bounded')
 		return minimum.x
 
 	def get_min_sep(self):
@@ -36,29 +38,39 @@ class event(object):
 
 		minTime = self.get_time_of_minSep()
 		return self._lens.getSep(minTime,self._source)
+	
+	def get_sep(self,epoch):
+		
+		return self._lens.getSep(epoch,self._source)
+
+
+	def get_einstein_R(self):
+		"""Returns the Enstien Radius [mas]
+
+		"""
+
+		return m.get_einstein_R(self._lensMass,self._lensDist,sourceDist=self._sourceDist)
 
 
 
-lensRa = ufloat(176.4549073,0.17862226 / (1000.0*3600.0))
-lensDec = ufloat(-64.84295714,0.22230826 / (1000.0*3600.0))
-lensPmra = ufloat(2662.03572627,0.15470192)
-lensPmdec = ufloat(-345.18255501,0.15334393)
-lensParallax = ufloat(215.782333,0.2727838)
+	def get_max_resolved_centroid_shift(self):
+		"""Returns the centriod shift due to mmajor image only.
 
-sourceRa = ufloat(176.46360456,1.54734795 / (1000.0*3600.0))
-sourceDec = ufloat(-64.84329779,2.29809596 / (1000.0*3600.0))
-sourcePmra = ufloat(-14.0,3.0)
-sourcePmdec = ufloat(-2.0,3.0)
+		"""
 
+		MinSep = self.get_min_sep()		
 
-lens = skyobj(1,lensRa,lensDec,lensPmra,lensPmdec,2015.0,parallax=lensParallax)
-source = skyobj(2,sourceRa,sourceDec,sourcePmra,sourcePmdec,2015.0,parallax=None)
+		return m.get_centriod_shift_resolved(self._lensMass,
+					self._lensDist,MinSep,sourceDist=self._sourceDist)
 
 
-MicroEvent = event(lens,source,0.0,0.0)
 
-print(MicroEvent.get_time_of_minSep())
-print(MicroEvent.get_min_sep())
-print(lens.getRaDec(2016.0))
-print(source.getRaDec(2016.0))
+	def get_resolved_centroid_shift_at_epoch(self,epoch):
+		"""Returns unresolved centriod shift at epoch [mas]
+		"""
+
+		sep = self._lens.getSep(epoch,self._source)
+		
+		return m.get_centriod_shift_resolved(self._lensMass,
+                                        self._lensDist,sep,sourceDist=self._sourceDist)			
 

@@ -101,7 +101,7 @@ def get_centroid_shift_unresolved(lensMass,lensDist,Sep,sourceDist=None,
 		return (mu * EinsteinR) / ((mu**2 + 2)*lumFactor)
 
 
-def get_source_centriod_shift_resolved(lensMass,lensDist,sep,sourceDist=None):
+def get_centriod_shift_resolved(lensMass,lensDist,sep,sourceDist=None):
 	"""Calculates the centroid shift of the source position
 	due to the brightest image.
 
@@ -129,8 +129,7 @@ def get_source_centriod_shift_resolved(lensMass,lensDist,sep,sourceDist=None):
 def get_major_img(lensMass,lensDist,sep,sourceDist=None):
 
 	einsteinR = get_einstein_R(lensMass,lensDist,sourceDist=sourceDist)
-	sep = ufloat(sep,sep_err)
-	u = sep / einstienR
+	u = sep / einsteinR
 
 	return 0.5 * (np.sqrt(u**2 +4)+u) * einsteinR
 

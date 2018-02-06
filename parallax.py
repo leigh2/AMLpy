@@ -7,7 +7,7 @@
 
 import uncertainties.umath as np
 from astropy import units as u
-from astropy.coordinates import get_sun
+from astropy.coordinates import get_body_barycentric
 from astropy.time import Time
 import numpy as numpy
 
@@ -16,7 +16,7 @@ rad2deg = 180.0 / numpy.pi
 
 def get_earth_observer_vector(time):
 	"""Calculate the position vector of and on earth observer in 
-	heliocentric ecliptic corrdinates at epoch=time
+	baroycentric corrdinates at epoch=time
 
         Args:
            time (obj:astropy:time) : Time at which the position of the obsever 
@@ -28,10 +28,9 @@ def get_earth_observer_vector(time):
 
         """
     
-	sunPos = get_sun(time)
-	sunPos.representation = "cartesian"
+	R = get_body_barycentric('earth', time, ephemeris='jpl')
+	return  numpy.array([R.x.to(u.AU) / u.AU, R.y.to(u.AU) / u.AU, R.z.to(u.AU) / u.AU])
 
-	return numpy.array([-sunPos.x / u.AU,-sunPos.y / u.AU,-sunPos.z/  u.AU])
 
 def angular_to_cartesian(ra,dec):
 	"""Calculates unit cartesian vector of angular coordinates Right 
