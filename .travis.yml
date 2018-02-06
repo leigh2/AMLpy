@@ -1,7 +1,6 @@
 language: python
 install:
- - pip install scipy
- - pip install astropy
-
+ - pip install uncertainites 
+ 
 script: 
  - python -m unittest discover -v
