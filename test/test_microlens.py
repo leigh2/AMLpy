@@ -51,6 +51,10 @@ class TestmicroLens(unittest.TestCase):
 		self.assertAlmostEqual(m.get_centroid_shift_unresolved(0.3,92.5,5.138*2.4,lensMag=16.3,sourceMag=19.6),0.093,places=1)
 		self.assertAlmostEqual(m.get_centroid_shift_unresolved(0.35,55.7,7.149*21.3,lensMag=14.4,sourceMag=17.9),0.013,places=2)
 
+	#def test_get_angular_sep(self):
+
+		#self.assertAlmostEqual(m.get_angular_sep(,
+
 #	def test_get_enstien_T(self):
 #		#check to 1 day precison (limited by data provided by Proft)
 #		#self.assertAlmostEqual((m.get_enstien_T(0.3,57.7,527.0)).n*364.25,5,places=0)

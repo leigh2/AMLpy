@@ -8,6 +8,7 @@
 from astropy.time import Time
 import uncertainties.umath as np
 from uncertainties import ufloat
+from astropy.coordinates import SkyCoord
 
 import parallax as p
 import numpy as numpy
@@ -58,7 +59,11 @@ class skyobj(object):
 
 			R = R_0 + (_m* dt) - R_earth
 
-			return p.cartesian_to_angular(R[0],R[1],R[2])
+			Rcoord = SkyCoord((R[0]).n,(R[1]).n,(R[2]).n, frame='icrs', unit='AU', representation='cartesian')
+			Rcoord.representation = 'spherical'
+
+			return numpy.array([Rcoord.ra.degree,Rcoord.dec.degree])
+			#return p.cartesian_to_angular(R[0],R[1],R[2])
 
 
 
@@ -75,15 +80,20 @@ class skyobj(object):
 	
 		ra2 = pos2[0]
 		dec2 = pos2[1]
+		
+		coord1 = SkyCoord(ra=ra1, dec=dec1, unit='deg', frame='icrs')
+		coord2 = SkyCoord(ra=ra2, dec=dec2, unit='deg', frame='icrs')
 
-		return m.get_angular_sep(ra1,dec1,ra2,dec2) 
+		return coord1.separation(coord2).arcsec * 1000.0
+
+		#return m.get_angular_sep(ra1,dec1,ra2,dec2) 
 
 					
 	def getSepNum(self,epoch,other):
 		"""Get angular Separation with another skyobj,
                 in mas number only for minimization purposes
                 """
-		return (self.getSep(epoch,other)).n
+		return self.getSep(epoch,other)
 
 		
 				
